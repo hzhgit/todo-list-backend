@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Todo;
+import com.example.demo.exception.NoSuchDataException;
 import com.example.demo.respository.TodoRepository;
 import org.junit.jupiter.api.Test;
 
@@ -8,8 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -75,5 +75,18 @@ public class TodoServiceTest {
         Boolean isDelete = todoService.deleteTodo(1);
         //then
         assertTrue(isDelete);
+    }
+
+    @Test
+    void should_return_no_such_data_exception_when_delete_todo_given_id() {
+        //given
+        TodoRepository mockRepository = mock(TodoRepository.class);
+        TodoService todoService = new TodoService(mockRepository);
+        int id = 9999;
+        given(mockRepository.getOne(1)).willReturn(null);
+        //when
+        Throwable exception = assertThrows(NoSuchDataException.class, () -> todoService.deleteTodo(id));
+        //tehn
+        assertEquals(NoSuchDataException.class, exception.getClass());
     }
 }
