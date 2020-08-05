@@ -18,4 +18,8 @@ public class TodoService {
     public Todo addTodo(Todo todo) {
         return todoRepository.save(todo);
     }
+
+    public Todo updateTodo(Integer id, Todo todo) {
+        return null;
+    }
 }
