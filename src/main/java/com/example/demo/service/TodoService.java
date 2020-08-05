@@ -6,16 +6,16 @@ import com.example.demo.respository.TodoRepository;
 import java.util.List;
 
 public class TodoService {
-    private  TodoRepository repository;
-    public TodoService(TodoRepository repository) {
-        this.repository = repository;
+    private  TodoRepository todoRepository;
+    public TodoService(TodoRepository todoRepository) {
+        this.todoRepository = todoRepository;
     }
 
     public List<Todo> getAllTodos() {
-        return repository.findAll();
+        return todoRepository.findAll();
     }
 
     public Todo addTodo(Todo todo) {
-        return null;
+        return todoRepository.save(todo);
     }
 }
