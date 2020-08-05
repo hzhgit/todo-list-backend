@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.mock;
 
@@ -62,5 +63,17 @@ public class TodoServiceTest {
         Todo todoSaved = todoService.updateTodo(todo.getId(), todo);
         //then
         assertEquals(todo, todoSaved);
+    }
+
+    @Test
+    void should_return_true_when_delete_todo_given_id() {
+        //given
+        TodoRepository mockRepository = mock(TodoRepository.class);
+        TodoService todoService = new TodoService(mockRepository);
+        given(mockRepository.findById(1)).willReturn(Optional.of(new Todo()));
+        //when
+        Boolean isDelete = todoService.deleteTodo(1);
+        //then
+        assertTrue(isDelete);
     }
 }

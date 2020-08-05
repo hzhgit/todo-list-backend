@@ -26,4 +26,8 @@ public class TodoService {
         }
         return null;
     }
+
+    public Boolean deleteTodo(int i) {
+        return null;
+    }
 }
