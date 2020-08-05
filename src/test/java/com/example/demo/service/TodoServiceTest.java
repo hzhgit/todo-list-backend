@@ -30,4 +30,22 @@ public class TodoServiceTest {
         assertEquals(todos.get(0).getContent(),allTodos.get(0).getContent());
         assertEquals(todos.get(0).getStatus(),allTodos.get(0).getStatus());
     }
+
+    @Test
+    void should_return_todo_when_add_todo_given_todo() {
+        //given
+        TodoRepository mockRepository = mock(TodoRepository.class);
+        TodoService todoService = new TodoService((mockRepository));
+        Todo todo = new Todo(null,"test2");
+        Integer todoId = todo.getId();
+        given(mockRepository.save(todo)).willReturn(todo);
+
+        //when
+        Todo newTodo = todoService.addTodo(todo);
+
+        //then
+        assertEquals(todoId,newTodo.getId());
+        assertEquals(todo.getContent(),newTodo.getContent());
+        assertEquals(todo.getStatus(),newTodo.getStatus());
+    }
 }
