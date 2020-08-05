@@ -26,6 +26,8 @@ public class TodoServiceTest {
         List<Todo> allTodos = todoService.getAllTodos();
 
         //then
-        assertEquals(todos,allTodos);
+        assertEquals(todos.get(0),allTodos.get(0));
+        assertEquals(todos.get(0).getContent(),allTodos.get(0).getContent());
+        assertEquals(todos.get(0).getStatus(),allTodos.get(0).getStatus());
     }
 }
