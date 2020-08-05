@@ -6,7 +6,8 @@ import com.example.demo.respository.TodoRepository;
 import java.util.List;
 
 public class TodoService {
-    private  TodoRepository todoRepository;
+    private TodoRepository todoRepository;
+
     public TodoService(TodoRepository todoRepository) {
         this.todoRepository = todoRepository;
     }
@@ -20,6 +21,9 @@ public class TodoService {
     }
 
     public Todo updateTodo(Integer id, Todo todo) {
+        if (todoRepository.findById(id).isPresent()) {
+            return todoRepository.save(todo);
+        }
         return null;
     }
 }

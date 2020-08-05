@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.BDDMockito.given;
@@ -26,9 +27,9 @@ public class TodoServiceTest {
         List<Todo> allTodos = todoService.getAllTodos();
 
         //then
-        assertEquals(todos.get(0),allTodos.get(0));
-        assertEquals(todos.get(0).getContent(),allTodos.get(0).getContent());
-        assertEquals(todos.get(0).getStatus(),allTodos.get(0).getStatus());
+        assertEquals(todos.get(0), allTodos.get(0));
+        assertEquals(todos.get(0).getContent(), allTodos.get(0).getContent());
+        assertEquals(todos.get(0).getStatus(), allTodos.get(0).getStatus());
     }
 
     @Test
@@ -36,7 +37,7 @@ public class TodoServiceTest {
         //given
         TodoRepository mockRepository = mock(TodoRepository.class);
         TodoService todoService = new TodoService((mockRepository));
-        Todo todo = new Todo(null,"test2");
+        Todo todo = new Todo(null, "test2");
         Integer todoId = todo.getId();
         given(mockRepository.save(todo)).willReturn(todo);
 
@@ -44,17 +45,18 @@ public class TodoServiceTest {
         Todo newTodo = todoService.addTodo(todo);
 
         //then
-        assertEquals(todoId,newTodo.getId());
-        assertEquals(todo.getContent(),newTodo.getContent());
-        assertEquals(todo.getStatus(),newTodo.getStatus());
+        assertEquals(todoId, newTodo.getId());
+        assertEquals(todo.getContent(), newTodo.getContent());
+        assertEquals(todo.getStatus(), newTodo.getStatus());
     }
 
     @Test
-    void should_return_todo_when_update_todos_given_todo() {
+    void should_return_todo_when_update_todos_given_todo_and_todo_id() {
         //given
         TodoRepository mockRepository = mock(TodoRepository.class);
         Todo todo = new Todo(null, "go to sleep");
         TodoService todoService = new TodoService(mockRepository);
+        given(mockRepository.findById(todo.getId())).willReturn(Optional.of(todo));
         given(mockRepository.save(todo)).willReturn(todo);
         //when
         Todo todoSaved = todoService.updateTodo(todo.getId(), todo);
