@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.entity.Todo;
+import com.example.demo.exception.NoSuchDataException;
 import com.example.demo.respository.TodoRepository;
 
 import java.util.List;
@@ -32,6 +33,6 @@ public class TodoService {
             todoRepository.deleteById(id);
             return true;
         }
-        return false;
+        throw new NoSuchDataException();
     }
 }
