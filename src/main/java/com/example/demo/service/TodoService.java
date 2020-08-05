@@ -27,7 +27,11 @@ public class TodoService {
         return null;
     }
 
-    public Boolean deleteTodo(int i) {
-        return null;
+    public Boolean deleteTodo(int id) {
+        if (todoRepository.findById(id).isPresent()) {
+            todoRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 }
