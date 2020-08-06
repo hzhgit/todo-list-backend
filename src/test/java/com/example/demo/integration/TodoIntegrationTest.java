@@ -64,7 +64,7 @@ public class TodoIntegrationTest {
                 "}";
         // then
         mockMvc.perform(post("/todos").contentType((MediaType.APPLICATION_JSON)).content(todoInfo))
-                .andExpect(status().isOk())
+                .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.content").value("go to bed"));
 
     }
