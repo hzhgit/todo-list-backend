@@ -24,9 +24,9 @@ public class TodoService {
 
     public Todo updateTodo(Integer id, Todo todo) {
         if (todoRepository.findById(id).isPresent()) {
+            todo.setId(id);
             return todoRepository.save(todo);
         }
-        System.out.println("-------------nulll");
         return null;
     }
 

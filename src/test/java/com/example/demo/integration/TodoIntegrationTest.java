@@ -43,6 +43,7 @@ public class TodoIntegrationTest {
     @AfterEach
     private void deleteData() {
         todoRepository.deleteAll();
+        assert todoRepository.findAll().isEmpty();
     }
 
     @Test
