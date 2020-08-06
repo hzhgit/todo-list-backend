@@ -16,13 +16,19 @@ public class TodoController {
 
 
     @GetMapping
-    public List<Todo> getAllTodos(){
+    public List<Todo> getAllTodos() {
         return todoService.getAllTodos();
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Todo addTodo(@RequestBody Todo todo){
+    public Todo addTodo(@RequestBody Todo todo) {
         return todoService.addTodo(todo);
+    }
+
+    @PutMapping("/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Todo changeStatus(@PathVariable Integer id, @RequestBody Todo todo) {
+        return todoService.updateTodo(id,todo);
     }
 }

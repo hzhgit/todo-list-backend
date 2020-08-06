@@ -15,8 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -71,13 +70,15 @@ public class TodoIntegrationTest {
     @Test
     void should_return_todo_when_update_todo_given_todo() throws Exception {
         // given
+        Todo todo = new Todo(1, "test");
+        Integer id = todoRepository.save(todo).getId();
         String todoInfo = "{\n" +
-                "    \"content\":\"go to bed\"\n" +
+                "    \"content\": \"test\"\n" +
+                "    \"status\": \"true\"\n" +
                 "}";
         // then
-        mockMvc.perform(post("/todos" + 1).contentType((MediaType.APPLICATION_JSON)).content(todoInfo))
+        mockMvc.perform(put("/todos/" + id).contentType((MediaType.APPLICATION_JSON)).content(todoInfo))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.content").value("go to bed"))
                 .andExpect(jsonPath("$.status").value(true));
     }
 }
