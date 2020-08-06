@@ -81,4 +81,15 @@ public class TodoIntegrationTest {
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.status").value(true));
     }
+
+    @Test
+    public void should_return_true_when_delete_todo_given_id() throws Exception {
+        //given
+        Todo todo = new Todo(1, "test");
+        Integer id = todoRepository.save(todo).getId();
+        //then
+        mockMvc.perform(delete("/todos/" + id))
+                .andExpect(status().isAccepted())
+                .andExpect(jsonPath("$").value(true));
+    }
 }
