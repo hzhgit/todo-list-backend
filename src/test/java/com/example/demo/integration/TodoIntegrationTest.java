@@ -66,6 +66,18 @@ public class TodoIntegrationTest {
         mockMvc.perform(post("/todos").contentType((MediaType.APPLICATION_JSON)).content(todoInfo))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.content").value("go to bed"));
+    }
 
+    @Test
+    void should_return_todo_when_update_todo_given_todo() throws Exception {
+        // given
+        String todoInfo = "{\n" +
+                "    \"content\":\"go to bed\"\n" +
+                "}";
+        // then
+        mockMvc.perform(post("/todos" + 1).contentType((MediaType.APPLICATION_JSON)).content(todoInfo))
+                .andExpect(status().isCreated())
+                .andExpect(jsonPath("$.content").value("go to bed"))
+                .andExpect(jsonPath("$.status").value(true));
     }
 }
