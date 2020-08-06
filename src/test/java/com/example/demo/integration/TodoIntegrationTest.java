@@ -48,9 +48,9 @@ public class TodoIntegrationTest {
     void should_return_todos_when_get_all_todos_given_none() throws Exception {
         mockMvc.perform(get("/todos"))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$", hasSize(4)))
                 .andExpect(jsonPath("$[0].content").value("111"))
                 .andExpect(jsonPath("$[1].content").value("222"))
-                .andExpect(jsonPath("$[3].content").value("333"));
+                .andExpect(jsonPath("$[2].content").value("333"));
     }
 }

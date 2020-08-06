@@ -3,9 +3,10 @@ package com.example.demo.service;
 import com.example.demo.entity.Todo;
 import com.example.demo.exception.NoSuchDataException;
 import com.example.demo.respository.TodoRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class TodoService {
     private TodoRepository todoRepository;
 
